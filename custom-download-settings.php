@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Custom Download Settings
  * Plugin URI:        https://wiserdev.com/cds
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
+ * Description:       Set custom download preferences for your WooCommerce products.
  * Version:           1.0.0
  * Author:            WiserDev Ltd
  * Author URI:        https://wiserdev.com
