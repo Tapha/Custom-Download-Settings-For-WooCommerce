@@ -75,8 +75,14 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-custom-download-settings.p
  */
 function run_custom_download_settings() {
 
-	$plugin = new Custom_Download_Settings();
-	$plugin->run();
+	/**
+	 * Check if WooCommerce is active
+	 **/
+	if ( in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
+	    // Run the plugin
+	    $plugin = new Custom_Download_Settings();
+	    $plugin->run();
+	}
 
 }
 run_custom_download_settings();
