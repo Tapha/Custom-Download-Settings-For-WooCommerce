@@ -61,16 +61,10 @@ class Custom_Download_Settings_Admin {
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
 
+		//Set select ID
+		$this->select_id = '_custom_product_download_select_field';
+
 	}
-
-	public function init() {
- 
-        // The code for displaying WooCommerce Product Custom Fields
-		add_action( 'woocommerce_product_options_general_product_data', 'cds_product_custom_fields' ); 
-
-		// This saves  WooCommerce Product Custom Fields
-		add_action( 'woocommerce_process_product_meta', 'cds_product_custom_fields_save' );
-    }
 
     public function cds_product_custom_fields() {
          global $woocommerce, $post;
@@ -79,14 +73,14 @@ class Custom_Download_Settings_Admin {
 			// Custom Product Text Field
 		    woocommerce_wp_select( 
 			array( 
-				'id'          => '_custom_product_download_select_field', 
-				'label'       => __( 'Custom Download Setting', 'woocommerce' ), 
-				'description' => __( 'Choose a download setting for this product.', 'woocommerce' ),
-				'value'       => ,//get_post_meta(),
+				'id'          => $this->select_id, 
+				'label'       => __('Download Setting'), 
+				'description' => __('Choose a download setting for this product.'),
+				'value'       => get_post_meta($post->ID, $this->select_id, true),
 				'options' => array(
-					'one'   => __( 'Redirect Only', 'woocommerce' ),
-					'two'   => __( 'Force Download', 'woocommerce' ),
-					'three' => __( 'X-Accel-Redirect/X-Sendfile', 'woocommerce' )
+					'one'   => __('Redirect Only'),
+					'two'   => __('Force Download'),
+					'three' => __('X-Accel-Redirect/X-Sendfile')
 					)
 				)
 			);
@@ -94,7 +88,10 @@ class Custom_Download_Settings_Admin {
     }
 
     public function cds_product_custom_fields_save() {
-         
+         // Custom Product Text Field
+	    $woocommerce_custom_product_download_field = $_POST['_custom_product_download_select_field'];
+	    if (!empty($woocommerce_custom_product_download_field))
+	        update_post_meta($post_id, '_custom_product_download_select_field', esc_attr($woocommerce_custom_product_download_field));
     }
 
 	/**

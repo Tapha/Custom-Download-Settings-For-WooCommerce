@@ -157,6 +157,12 @@ class Custom_Download_Settings {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		// The code for displaying WooCommerce Product Custom Fields
+		$this->loader->add_action( 'woocommerce_product_options_downloads', $plugin_admin, 'cds_product_custom_fields' );
+
+		// This saves WooCommerce Product Custom Fields
+		$this->loader->add_action( 'woocommerce_process_product_meta', $plugin_admin, 'cds_product_custom_fields_save' );
+
 	}
 
 	/**
