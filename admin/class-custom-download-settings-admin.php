@@ -41,6 +41,15 @@ class Custom_Download_Settings_Admin {
 	private $version;
 
 	/**
+	 * The select ID for the custom download setting field.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $select_id   The select ID for the custom download setting field.
+	 */
+	private $select_id;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -53,6 +62,40 @@ class Custom_Download_Settings_Admin {
 		$this->version = $version;
 
 	}
+
+	public function init() {
+ 
+        // The code for displaying WooCommerce Product Custom Fields
+		add_action( 'woocommerce_product_options_general_product_data', 'cds_product_custom_fields' ); 
+
+		// This saves  WooCommerce Product Custom Fields
+		add_action( 'woocommerce_process_product_meta', 'cds_product_custom_fields_save' );
+    }
+
+    public function cds_product_custom_fields() {
+         global $woocommerce, $post;
+			echo '<div class=" product_custom_field ">';
+			// This function has the logic of creating custom field
+			// Custom Product Text Field
+		    woocommerce_wp_select( 
+			array( 
+				'id'          => '_custom_product_download_select_field', 
+				'label'       => __( 'Custom Download Setting', 'woocommerce' ), 
+				'description' => __( 'Choose a download setting for this product.', 'woocommerce' ),
+				'value'       => ,//get_post_meta(),
+				'options' => array(
+					'one'   => __( 'Redirect Only', 'woocommerce' ),
+					'two'   => __( 'Force Download', 'woocommerce' ),
+					'three' => __( 'X-Accel-Redirect/X-Sendfile', 'woocommerce' )
+					)
+				)
+			);
+			echo '</div>';
+    }
+
+    public function cds_product_custom_fields_save() {
+         
+    }
 
 	/**
 	 * Register the stylesheets for the admin area.
