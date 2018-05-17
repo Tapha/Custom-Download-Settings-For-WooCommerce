@@ -95,6 +95,20 @@ class Custom_Download_Settings_Admin {
 	        update_post_meta($post->ID, '_custom_product_download_select_field', esc_attr($woocommerce_custom_product_download_field));
     }
 
+    public function cds_product_custom_quick_edit_fields() {
+    	global $woocommerce, $post;
+        echo "<div class='cds_quickedit_field'>
+		        <label style='position: left;'>
+		            <div class='title'><?php _e('Download Setting', 'woocommerce' ); ?></div>
+		         	<select>
+					  <option value='one'>Redirect Only</option>
+					  <option value='two'>Force Download</option>
+					  <option value='three'>X-Accel-Redirect/X-Sendfile</option>
+					</select>
+		         </label>
+		    	</div>";
+    }
+
 	/**
 	 * Register the stylesheets for the admin area.
 	 *
