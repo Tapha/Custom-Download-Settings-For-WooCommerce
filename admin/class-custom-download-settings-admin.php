@@ -97,10 +97,11 @@ class Custom_Download_Settings_Admin {
 
     public function cds_product_custom_quick_edit_fields() {
     	global $woocommerce, $post;
-        echo "<div class='cds_quickedit_field'>
-		        <label style='position: left;'>
-		            <div class='title'><?php _e('Download Setting', 'woocommerce' ); ?></div>
-		         	<select>
+        echo "<div class='cds_quickedit_field' style='position: relative; top: 30px; left: -189px;'>
+		        <label class='alignleft'>
+		            <div class='title'>";
+		echo _e('Download Setting', 'woocommerce' );
+		echo "</div><select>
 					  <option value='one'>Redirect Only</option>
 					  <option value='two'>Force Download</option>
 					  <option value='three'>X-Accel-Redirect/X-Sendfile</option>
