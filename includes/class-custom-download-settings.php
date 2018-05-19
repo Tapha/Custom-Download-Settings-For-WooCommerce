@@ -166,6 +166,9 @@ class Custom_Download_Settings {
 		//This creates a custom field on the Quick Edit Section of product posts.
 		$this->loader->add_action( 'woocommerce_product_quick_edit_end', $plugin_admin, 'cds_product_custom_quick_edit_fields');
 
+		//This saves the custom field on the Quick Edit Section of product posts.
+		$this->loader->add_action( 'woocommerce_product_quick_edit_save', $plugin_admin, 'cds_product_custom_quick_edit_fields_save');
+
 	}
 
 	/**

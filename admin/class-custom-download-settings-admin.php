@@ -101,13 +101,38 @@ class Custom_Download_Settings_Admin {
 		        <label class='alignleft'>
 		            <div class='title'>";
 		echo _e('Download Setting', 'woocommerce' );
-		echo "</div><select>
+		echo "</div><select name='_custom_download_field'>
 					  <option value='one'>Redirect Only</option>
 					  <option value='two'>Force Download</option>
 					  <option value='three'>X-Accel-Redirect/X-Sendfile</option>
 					</select>
 		         </label>
 		    	</div>";
+    }
+
+    public function cds_product_custom_quick_edit_fields_save($product)
+    {
+    	/*
+		Notes:
+		$_REQUEST['_custom_field_demo'] -> the custom field we added above
+		Only save custom fields on quick edit option on appropriate product types (simple, etc..)
+		Custom fields are just post meta
+		*/
+
+		if ( $product->is_type('simple') || $product->is_type('external') ) {
+
+		    $post_id = $product->id;
+
+		    if ( isset( $_REQUEST['_custom_download_field'] ) ) {
+
+		        $customDwnload = trim(esc_attr( $_REQUEST['_custom_download_field'] ));
+
+		        // Do sanitation and Validation here
+
+		        update_post_meta( $post_id, '_custom_download_field', wc_clean( $customDwnload ) );
+		    }
+
+		}
     }
 
 	/**
