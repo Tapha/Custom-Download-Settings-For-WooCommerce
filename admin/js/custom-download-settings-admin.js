@@ -57,6 +57,8 @@ $(function() {
 		         
 		    //$('#custom_download_select', '.inline-edit-row').val($custom_edit_field_value);
 
+		    $('select[name="_custom_download_field"] option').removeAttr("selected");
+
 		    $( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
 
 		    console.log($custom_edit_field_value);
