@@ -62,7 +62,7 @@ class Custom_Download_Settings_Admin {
 		$this->version = $version;
 
 		//Set select ID
-		$this->select_id = '_custom_product_download_select_field';
+		$this->select_id = '_custom_download_field';
 
 	}
 
@@ -90,9 +90,9 @@ class Custom_Download_Settings_Admin {
     public function cds_product_custom_fields_save() {
     	global $woocommerce, $post;
          // Custom Product Text Field
-	    $woocommerce_custom_product_download_field = $_POST['_custom_product_download_select_field'];
+	    $woocommerce_custom_product_download_field = $_POST['_custom_download_field'];
 	    if (!empty($woocommerce_custom_product_download_field))
-	        update_post_meta($post->ID, '_custom_product_download_select_field', esc_attr($woocommerce_custom_product_download_field));
+	        update_post_meta($post->ID, '_custom_download_field', esc_attr($woocommerce_custom_product_download_field));
     }
 
     public function cds_product_custom_quick_edit_fields() {
