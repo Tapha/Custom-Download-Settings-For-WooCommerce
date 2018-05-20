@@ -54,8 +54,6 @@ $(function() {
 		        $wc_inline_data = $('#woocommerce_inline_' + post_id );
 
 		    var $custom_edit_field_value = $cfd_inline_data.find("#_custom_download_field").text();
-		         
-		    //$('#custom_download_select', '.inline-edit-row').val($custom_edit_field_value);
 
 		    $('select[name="_custom_download_field"] option').removeAttr("selected");
 
@@ -64,10 +62,6 @@ $(function() {
 		    console.log($custom_edit_field_value);
 
 		    $custom_edit_field_value = '';
-
-		 //    $('#custom_download_select').change(function() {
-			//     console.log($(this).val());
-			// });​
 
 		    /**
 		     * Only show custom field for appropriate types of products (simple)
