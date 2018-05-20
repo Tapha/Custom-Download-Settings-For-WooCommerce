@@ -112,6 +112,7 @@ class Custom_Download_Settings_Admin {
 
     public function cds_product_custom_quick_edit_fields_save($product)
     {
+    	global $woocommerce, $post;
     	/*
 		Notes:
 		$_REQUEST['_custom_field_demo'] -> the custom field we added above
@@ -133,6 +134,27 @@ class Custom_Download_Settings_Admin {
 		    }
 
 		}
+    }
+
+    public function cds_product_posts_insert_edit($column)
+    {	
+    	global $woocommerce, $post;
+
+    	$post_id = $post->ID;
+
+    	switch ( $column ) {
+		    case 'name' :
+		      
+		        echo "<div class='hidden custom_download_field_inline' id='custom_download_field_inline_".$post_id."'>
+		            	<div id='_custom_download_field'>".get_post_meta($post_id, '_custom_download_field', true)."</div>
+		        	  </div>";
+
+		        break;
+
+		    default :
+		        break;
+		}
+
     }
 
 	/**
