@@ -29,4 +29,49 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+//Code starts here
+
+/**
+  * This pulls in the download setting in the hidden input set by 
+  * the cds_product_posts_insert_edit method and displays it in the 
+  * currently displayed select.
+*/
+
+jQuery('#the-list').on('click', '.editinline', function(){
+
+    /**
+     * Extract metadata and put it as the value for the custom field form
+     */
+    inlineEditPost.revert();
+
+    var post_id = jQuery(this).closest('tr').attr('id');
+
+    post_id = post_id.replace("post-", "");
+
+    var $cfd_inline_data = jQuery('#custom_download_field_inline_' + post_id),
+        $wc_inline_data = jQuery('#woocommerce_inline_' + post_id );
+
+    var $custom_edit_field_value = $cfd_inline_data.find("#_custom_download_field").text();
+         
+    jQuery('#custom_download_select', '.inline-edit-row').val(custom_edit_field_value);
+
+    //$( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
+
+    jQuery('#custom_download_select').change(function() {
+	    console.log(jQuery(this).val());
+	});​
+
+    /**
+     * Only show custom field for appropriate types of products (simple)
+     */
+    var product_type = $wc_inline_data.find('.product_type').text();
+
+    if (product_type=='simple' || product_type=='external') {
+        jQuery('.cds_quickedit_field', '.inline-edit-row').show();
+    } else {
+        jQuery('.cds_quickedit_field', '.inline-edit-row').hide();
+    }
+
+});
+
 })( jQuery );

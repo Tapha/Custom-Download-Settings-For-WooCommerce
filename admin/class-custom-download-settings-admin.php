@@ -101,7 +101,7 @@ class Custom_Download_Settings_Admin {
 		        <label class='alignleft'>
 		            <div class='title'>";
 		echo _e('Download Setting', 'woocommerce' );
-		echo "</div><select name='_custom_download_field'>
+		echo "</div><select id='custom_download_select' name='_custom_download_field'>
 					  <option value='one'>Redirect Only</option>
 					  <option value='two'>Force Download</option>
 					  <option value='three'>X-Accel-Redirect/X-Sendfile</option>
