@@ -37,41 +37,49 @@
   * currently displayed select.
 */
 
-jQuery('#the-list').on('click', '.editinline', function(){
+$(function() {
 
-    /**
-     * Extract metadata and put it as the value for the custom field form
-     */
-    inlineEditPost.revert();
+		$('#the-list').on('click', '.editinline', function(){
 
-    var post_id = jQuery(this).closest('tr').attr('id');
+		    /**
+		     * Extract metadata and put it as the value for the custom field form
+		     */
+		    inlineEditPost.revert();
 
-    post_id = post_id.replace("post-", "");
+		    var post_id = $(this).closest('tr').attr('id');
 
-    var $cfd_inline_data = jQuery('#custom_download_field_inline_' + post_id),
-        $wc_inline_data = jQuery('#woocommerce_inline_' + post_id );
+		    post_id = post_id.replace("post-", "");
 
-    var $custom_edit_field_value = $cfd_inline_data.find("#_custom_download_field").text();
-         
-    jQuery('#custom_download_select', '.inline-edit-row').val(custom_edit_field_value);
+		    var $cfd_inline_data = $('#custom_download_field_inline_' + post_id),
+		        $wc_inline_data = $('#woocommerce_inline_' + post_id );
 
-    //$( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
+		    var $custom_edit_field_value = $cfd_inline_data.find("#_custom_download_field").text();
+		         
+		    //$('#custom_download_select', '.inline-edit-row').val($custom_edit_field_value);
 
-    jQuery('#custom_download_select').change(function() {
-	    console.log(jQuery(this).val());
-	});​
+		    $( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
 
-    /**
-     * Only show custom field for appropriate types of products (simple)
-     */
-    var product_type = $wc_inline_data.find('.product_type').text();
+		    console.log($custom_edit_field_value);
 
-    if (product_type=='simple' || product_type=='external') {
-        jQuery('.cds_quickedit_field', '.inline-edit-row').show();
-    } else {
-        jQuery('.cds_quickedit_field', '.inline-edit-row').hide();
-    }
+		    $custom_edit_field_value = '';
 
-});
+		 //    $('#custom_download_select').change(function() {
+			//     console.log($(this).val());
+			// });​
+
+		    /**
+		     * Only show custom field for appropriate types of products (simple)
+		     */
+		    var product_type = $wc_inline_data.find('.product_type').text();
+
+		    if (product_type=='simple' || product_type=='external') {
+		        $('.cds_quickedit_field', '.inline-edit-row').show();
+		    } else {
+		        $('.cds_quickedit_field', '.inline-edit-row').hide();
+		    }
+
+		});
+
+  });
 
 })( jQuery );

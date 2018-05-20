@@ -78,7 +78,7 @@ class Custom_Download_Settings_Admin {
 				'description' => __('Choose a download setting for this product.'),
 				'value'       => get_post_meta($post->ID, $this->select_id, true),
 				'options' => array(
-					'one'   => __('Redirect Only'),
+					'one'  => __('Redirect Only'),
 					'two'   => __('Force Download'),
 					'three' => __('X-Accel-Redirect/X-Sendfile')
 					)
