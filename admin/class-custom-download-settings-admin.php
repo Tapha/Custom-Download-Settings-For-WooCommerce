@@ -71,7 +71,12 @@ class Custom_Download_Settings_Admin {
          
 			echo '<div class=" product_custom_field ">';
 
-			echo $this->cds_meta_data_check($post->ID);
+			$meta_check_result = $this->cds_meta_data_check($post->ID);
+
+			if ($meta_check_result != 5)
+			{
+				echo "<input id='current_download_setting' type='hidden' name='current_download_setting' value='".$meta_check_result."'>"; //Hidden input field with current download setting data.
+			}
 			// This function has the logic of creating custom field
 			// Custom Product Text Field
 		    woocommerce_wp_select( 
@@ -193,7 +198,7 @@ class Custom_Download_Settings_Admin {
     	}
     	else
     	{
-    		return $custom_download_field_check;
+    		return 5;
     	}
     }
 
