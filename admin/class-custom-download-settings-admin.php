@@ -68,6 +68,7 @@ class Custom_Download_Settings_Admin {
 
     public function cds_product_custom_fields() {
          global $woocommerce, $post;
+         echo $this->cds_meta_data_check($post->id);
 			echo '<div class=" product_custom_field ">';
 			// This function has the logic of creating custom field
 			// Custom Product Text Field
@@ -78,9 +79,9 @@ class Custom_Download_Settings_Admin {
 				'description' => __('Choose a download setting for this product.'),
 				'value'       => get_post_meta($post->ID, $this->select_id, true),
 				'options' => array(
-					'one'  => __('Redirect Only'),
-					'two'   => __('Force Download'),
-					'three' => __('X-Accel-Redirect/X-Sendfile')
+					'one'  => __('Force Download'),
+					'two'   => __('X-Accel-Redirect/X-Sendfile'),
+					'three' => __('Redirect Only')
 					)
 				)
 			);
@@ -102,10 +103,9 @@ class Custom_Download_Settings_Admin {
 		            <div class='title'>";
 		echo _e('Download Setting', 'woocommerce' );
 		echo "</div><select id='custom_download_select' name='_custom_download_field'>
-					  <option value='' selected disabled hidden>Choose here</option>
-					  <option value='one'>Redirect Only</option>
-					  <option value='two'>Force Download</option>
-					  <option value='three'>X-Accel-Redirect/X-Sendfile</option>
+					  <option value='one'>Force Download</option>
+					  <option value='two'>X-Accel-Redirect/X-Sendfile</option>
+					  <option value='three'>Redirect Only</option>
 					</select>
 		         </label>
 		    	</div>";
@@ -156,6 +156,27 @@ class Custom_Download_Settings_Admin {
 		        break;
 		}
 
+    }
+
+    private function cds_meta_data_check($post_id)
+    {
+    	/*Check product to see if meta data for custom download field is set,
+    	* if not then check the current default setting on the site and then set that to be
+    	* the default setting in the custom download setting field.
+    	*/ 
+
+    	$custom_download_field_check = metadata_exists('post', $post_id, '_custom_download_field');
+
+    	if ($custom_download_field_check == false)
+    	{
+    		//Get default site setting and return corresponding option.
+
+    		//return $custom_download_field_option;
+    	}
+    	else
+    	{
+    		return $custom_download_field_check;
+    	}
     }
 
 	/**
