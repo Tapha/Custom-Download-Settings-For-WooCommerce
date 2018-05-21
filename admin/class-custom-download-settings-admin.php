@@ -68,8 +68,10 @@ class Custom_Download_Settings_Admin {
 
     public function cds_product_custom_fields() {
          global $woocommerce, $post;
-         echo $this->cds_meta_data_check($post->id);
+         
 			echo '<div class=" product_custom_field ">';
+
+			echo $this->cds_meta_data_check($post->ID);
 			// This function has the logic of creating custom field
 			// Custom Product Text Field
 		    woocommerce_wp_select( 
@@ -170,8 +172,24 @@ class Custom_Download_Settings_Admin {
     	if ($custom_download_field_check == false)
     	{
     		//Get default site setting and return corresponding option.
+    		$file_download_method = get_option( 'woocommerce_file_download_method', 'force' );
 
-    		//return $custom_download_field_option;
+    		//Check setting and return corresponding select position to method.
+
+    		switch ($file_download_method) {
+    			case 'force':
+    				return 'one';
+    				break;
+    			case 'xsendfile':
+    				return 'two';
+    				break;
+    			case 'redirect':
+    				return 'three';
+    				break;    			
+    			default:
+    				return false;
+    				break;
+    		}
     	}
     	else
     	{
