@@ -65,22 +65,27 @@ $(function() {
 
 		    $('select[name="_custom_download_field"] option').removeAttr("selected");
 
-		    $( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
+		    if ($custom_edit_field_value == '')
+		    {
+		    	//If no custom value is set
+
+			    var $download_setting = $("#current_download_setting").val();
+
+				//Update selected to the current download setting
+					
+				if (($download_setting == 'one') || ($download_setting == 'two') || ($download_setting == 'three'))
+				{
+					$( 'select[name="_custom_download_field"] option[value="' + $download_setting + '"]').attr( 'selected', 'selected' );
+				}
+		    }
+		    else
+		    {
+		    	$( 'select[name="_custom_download_field"] option[value="' + $custom_edit_field_value + '"]', '.inline-edit-row' ).attr( 'selected', 'selected' );
+		    }
 
 		    console.log($custom_edit_field_value);
 
 		    $custom_edit_field_value = '';
-
-		    //If no custom value is set
-
-		    var $download_setting = $("#current_download_setting").val();
-
-			//Update selected to the current download setting
-				
-			if (($download_setting == 'one') || ($download_setting == 'two') || ($download_setting == 'three'))
-			{
-				$( 'select[name="_custom_download_field"] option[value="' + $download_setting + '"]').attr( 'selected', 'selected' );
-			}
 
 		    /**
 		     * Only show custom field for appropriate types of products (simple)

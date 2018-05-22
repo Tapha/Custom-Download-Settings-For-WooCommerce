@@ -108,11 +108,6 @@ class Custom_Download_Settings_Admin {
 
     	$meta_check_result = $this->cds_meta_data_check($post->ID);
 
-		if ($meta_check_result != 5)
-		{
-			$cds_default_download_setting = $meta_check_result; //Hidden input field with current download setting data.
-		}
-
         echo "<div class='cds_quickedit_field' style='position: relative; top: 30px; left: -189px;'>
 		        <label class='alignleft'>
 		            <div class='title'>";
@@ -125,26 +120,10 @@ class Custom_Download_Settings_Admin {
 		}		
 
 		echo "<select id='custom_download_select' name='_custom_download_field'>";
-				
-				if ($cds_default_download_setting == 'one')
-				{
-					echo "<option value='one' selected>Force Download</option>";
-					echo "<option value='two'>X-Accel-Redirect/X-Sendfile</option>";
-					echo "<option value='three'>Redirect Only</option>";	
-				}
-				elseif ($cds_default_download_setting == 'two')
-				{
-					echo "<option value='one'>Force Download</option>";
-					echo "<option value='two' selected>X-Accel-Redirect/X-Sendfile</option>";
-					echo "<option value='three'>Redirect Only</option>";	
-				}
-				elseif ($cds_default_download_setting == 'three')
-				{
-					echo $cds_default_download_setting;
-					echo "<option value='one'>Force Download</option>";
-					echo "<option value='two'>X-Accel-Redirect/X-Sendfile</option>";
-					echo "<option value='three' selected>Redirect Only</option>";	
-				}
+			
+			echo "<option value='one'>Force Download</option>";
+			echo "<option value='two'>X-Accel-Redirect/X-Sendfile</option>";
+			echo "<option value='three'>Redirect Only</option>";
 				  
 		echo "</select>
 	          </label>
