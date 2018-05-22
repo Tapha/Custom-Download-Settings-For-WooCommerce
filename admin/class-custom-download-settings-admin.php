@@ -105,16 +105,48 @@ class Custom_Download_Settings_Admin {
 
     public function cds_product_custom_quick_edit_fields() {
     	global $woocommerce, $post;
+
+    	$meta_check_result = $this->cds_meta_data_check($post->ID);
+
+		if ($meta_check_result != 5)
+		{
+			$cds_default_download_setting = $meta_check_result; //Hidden input field with current download setting data.
+		}
+
         echo "<div class='cds_quickedit_field' style='position: relative; top: 30px; left: -189px;'>
 		        <label class='alignleft'>
 		            <div class='title'>";
 		echo _e('Download Setting', 'woocommerce' );
-		echo "</div>
-				<select id='custom_download_select' name='_custom_download_field'>
-				  <option value='one'>Force Download</option>
-				  <option value='two'>X-Accel-Redirect/X-Sendfile</option>
-				  <option value='three'>Redirect Only</option>
-				</select>
+		echo "</div>";
+
+		if ($meta_check_result != 5)
+		{
+			echo "<input id='current_download_setting' type='hidden' name='current_download_setting' value='".$meta_check_result."'>"; //Hidden input field with current download setting data.
+		}		
+
+		echo "<select id='custom_download_select' name='_custom_download_field'>";
+				
+				if ($cds_default_download_setting == 'one')
+				{
+					echo "<option value='one' selected>Force Download</option>";
+					echo "<option value='two'>X-Accel-Redirect/X-Sendfile</option>";
+					echo "<option value='three'>Redirect Only</option>";	
+				}
+				elseif ($cds_default_download_setting == 'two')
+				{
+					echo "<option value='one'>Force Download</option>";
+					echo "<option value='two' selected>X-Accel-Redirect/X-Sendfile</option>";
+					echo "<option value='three'>Redirect Only</option>";	
+				}
+				elseif ($cds_default_download_setting == 'three')
+				{
+					echo $cds_default_download_setting;
+					echo "<option value='one'>Force Download</option>";
+					echo "<option value='two'>X-Accel-Redirect/X-Sendfile</option>";
+					echo "<option value='three' selected>Redirect Only</option>";	
+				}
+				  
+		echo "</select>
 	          </label>
 	    	  </div>";
     }
@@ -166,7 +198,7 @@ class Custom_Download_Settings_Admin {
 
     }
 
-    private function cds_meta_data_check($post_id = 1)
+    private function cds_meta_data_check($post_id)
     {
     	/*Check product to see if meta data for custom download field is set,
     	* if not then check the current default setting on the site and then set that to be
