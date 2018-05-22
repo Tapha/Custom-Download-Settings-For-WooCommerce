@@ -172,6 +172,17 @@ class Custom_Download_Settings {
 		//This is to insert the new data into the the custom field via a hidden field. JS reads from here and populates custom field with new data.
 		$this->loader->add_action( 'manage_product_posts_custom_column', $plugin_admin, 'cds_product_posts_insert_edit');
 
+		//Intercepting the download requests to do a check of custom settings and then applying the appropriate custom download method.
+
+		//This is to handle forced download requests.
+		$this->loader->add_action( 'woocommerce_download_file_force', $plugin_admin, 'cds_download_reroute', 9, 2);
+
+		//This is to handle redirect download requests.
+		$this->loader->add_action( 'woocommerce_download_file_redirect', $plugin_admin, 'cds_download_reroute', 9, 2);
+
+		//This is to handle xsendfile download requests.
+		$this->loader->add_action( 'woocommerce_download_file_xsendfile', $plugin_admin, 'cds_download_reroute', 9, 2);
+
 		//Filters
 	}
 
