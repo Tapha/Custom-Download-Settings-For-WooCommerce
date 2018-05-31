@@ -39,12 +39,22 @@
 
 $(function() {
 		//Edit Post Pages
+		$("input[name=_downloadable]").change(function() {
+    		
+    		if(this.checked) {
+				var $download_setting = $("#current_download_setting").val();
+
+				//Update selected to the current download setting
+				$( 'select[name="_custom_download_field"] option[value="' + $download_setting + '"]').attr( 'selected', 'selected' );
+			}
+		});
+		
 		if ($('input#_downloadable').is(':checked')) {
 			var $download_setting = $("#current_download_setting").val();
 
 			//Update selected to the current download setting
 			$( 'select[name="_custom_download_field"] option[value="' + $download_setting + '"]').attr( 'selected', 'selected' );
-		}	
+		}
 
 		//Quick Edit
 		$('#the-list').on('click', '.editinline', function(){			
