@@ -70,6 +70,7 @@ class Custom_Download_Settings_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
+		$this->loader = $loader;
 
 		//Set select ID
 		$this->select_id = '_custom_download_field';
