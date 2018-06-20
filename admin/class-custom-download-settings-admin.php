@@ -238,22 +238,47 @@ class Custom_Download_Settings_Admin {
     {
     	global $woocommerce, $post;
 
+    	//Retrieve product information.
+
+    	$product_id = absint( $_GET['download_file'] ); // phpcs:ignore WordPress.VIP.SuperGlobalInputUsage.AccessDetected, WordPress.VIP.ValidatedSanitizedInput.InputNotValidated
+		//$product    = wc_get_product( $product_id );
+    	
     	//Check to see if custom setting is enabled.
-    	$download_setting = $this->cds_meta_data_check($post->ID);
+    	$download_setting = $this->cds_meta_data_check($product_id);
 
     	//If it is, then reroute to the download method in the custom setting.
     	if ($download_setting == 5)
     	{	
-    		$file_download_method = $this->cds_get_custom_download_setting($post->ID);
+    		$file_download_method = $this->cds_get_custom_download_setting($product_id);
+
     		// Trigger download via the customly set method
         	do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
     	}
     	else
     	{
-    		$file_download_method = $download_setting;
+    		$file_download_method = $this->cds_download_setting_stter($download_setting);
+
     		//If not then simply allow the next action in the lifecycle to run.
     		do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
     	}
+    }
+
+    private function cds_download_setting_stter($option)
+    {
+    	switch ($option) {
+    			case 'one':
+    				return 'force';
+    				break;
+    			case 'two':
+    				return 'xsendfile';
+    				break;
+    			case 'three':
+    				return 'redirect';
+    				break;    			
+    			default:
+    				return false;
+    				break;
+    		}
     }
 
 	/**
