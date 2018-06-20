@@ -70,10 +70,13 @@ class Custom_Download_Settings_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		$this->loader = $loader;
+		
+		$this->loader = new Custom_Download_Settings_Loader();
 
 		//Set select ID
 		$this->select_id = '_custom_download_field';
+
+		ini_set('memory_limit', '128M');
 
 	}
 
@@ -267,8 +270,6 @@ class Custom_Download_Settings_Admin {
 
     		// Trigger download via the customly set method
         	do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
-
-        	$this->loader = new Custom_Download_Settings_Loader();
 
         	$plugin_admin = new Custom_Download_Settings_Admin( $this->get_plugin_name(), $this->get_version() );
 
