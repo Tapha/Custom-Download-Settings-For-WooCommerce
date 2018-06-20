@@ -50,6 +50,16 @@ class Custom_Download_Settings_Admin {
 	private $select_id;
 
 	/**
+	 * The loader that's responsible for maintaining and registering all hooks that power
+	 * the plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      Custom_Download_Settings_Loader    $loader    Maintains and registers all hooks for the plugin.
+	 */
+	protected $loader;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -236,7 +246,7 @@ class Custom_Download_Settings_Admin {
 
     public function cds_download_reroute($file_path, $filename)
     {
-    	global $woocommerce, $post;
+    	//global $woocommerce, $post;
 
     	//Retrieve product information.
 
@@ -251,15 +261,36 @@ class Custom_Download_Settings_Admin {
     	{	
     		$file_download_method = $this->cds_get_custom_download_setting($product_id);
 
+    		//Remove reroute hook temporarily
+    		remove_action('woocommerce_download_file_' . $file_download_method, 'cds_download_reroute');
+
     		// Trigger download via the customly set method
         	do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
+
+        	$this->loader = new Custom_Download_Settings_Loader();
+
+        	$plugin_admin = new Custom_Download_Settings_Admin( $this->get_plugin_name(), $this->get_version() );
+
+        	//Reset reroute hook
+        	$this->loader->add_action( 'woocommerce_download_file_' . $file_download_method, $plugin_admin, 'cds_download_reroute', 9, 2);
+
     	}
     	else
     	{
     		$file_download_method = $this->cds_download_setting_stter($download_setting);
 
+    		//Remove reroute hook temporarily
+    		remove_action('woocommerce_download_file_' . $file_download_method, 'cds_download_reroute');
+
     		//If not then simply allow the next action in the lifecycle to run.
     		do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
+
+    		$this->loader = new Custom_Download_Settings_Loader();
+
+        	$plugin_admin = new Custom_Download_Settings_Admin( $this->get_plugin_name(), $this->get_version() );
+
+    		//Reset reroute hook
+        	$this->loader->add_action( 'woocommerce_download_file_' . $file_download_method, $plugin_admin, 'cds_download_reroute', 9, 2);
     	}
     }
 
@@ -280,6 +311,37 @@ class Custom_Download_Settings_Admin {
     				break;
     		}
     }
+
+    /**
+	 * The name of the plugin used to uniquely identify it within the context of
+	 * WordPress and to define internationalization functionality.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The name of the plugin.
+	 */
+	public function get_plugin_name() {
+		return $this->plugin_name;
+	}
+
+	/**
+	 * The reference to the class that orchestrates the hooks with the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    Custom_Download_Settings_Loader    Orchestrates the hooks of the plugin.
+	 */
+	public function get_loader() {
+		return $this->loader;
+	}
+
+	/**
+	 * Retrieve the version number of the plugin.
+	 *
+	 * @since     1.0.0
+	 * @return    string    The version number of the plugin.
+	 */
+	public function get_version() {
+		return $this->version;
+	}
 
 	/**
 	 * Register the stylesheets for the admin area.
