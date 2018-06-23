@@ -271,7 +271,6 @@ class Custom_Download_Settings_Admin {
     		// Trigger download via the customly set method
         	$custom_download = new CDS_Download_Handler();
 
-        	//$custom_download::init();
     	}
     	else
     	{
@@ -280,9 +279,9 @@ class Custom_Download_Settings_Admin {
     		//Remove reroute hook temporarily
     		remove_action('woocommerce_download_file_' . $file_download_method, array( $plugin_admin, 'cds_download_reroute' ));
 
+    		// Trigger download via default set method
     		$cds_download = new WC_Download_Handler();
 
-    		//$cds_download::init();
 		}
     }
 
