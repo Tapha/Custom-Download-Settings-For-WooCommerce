@@ -20,6 +20,9 @@
  * @subpackage Custom_Download_Settings/admin
  * @author     WiserDev Ltd <tapha@wiserdev.com>
  */
+
+include( plugin_dir_path( __FILE__ ) . 'classes/CDS_Download_Handler.php');
+
 class Custom_Download_Settings_Admin {
 
 	/**
@@ -75,8 +78,6 @@ class Custom_Download_Settings_Admin {
 
 		//Set select ID
 		$this->select_id = '_custom_download_field';
-
-		ini_set('memory_limit', '128M');
 
 	}
 
@@ -250,7 +251,6 @@ class Custom_Download_Settings_Admin {
 
     public function cds_download_reroute($file_path, $filename)
     {
-    	//global $woocommerce, $post;
 
     	//Retrieve product information.
 
@@ -266,15 +266,15 @@ class Custom_Download_Settings_Admin {
     		$file_download_method = $this->cds_get_custom_download_setting($product_id);
 
     		//Remove reroute hook temporarily
-    		remove_action('woocommerce_download_file_' . $file_download_method, 'cds_download_reroute');
+    		remove_action('woocommerce_download_file_' . $file_download_method, array( $plugin_admin, 'cds_download_reroute' ));
 
     		// Trigger download via the customly set method
-        	do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
+        	$custom_download = new CDS_Download_Handler($file_download_method);
 
-        	$plugin_admin = new Custom_Download_Settings_Admin( $this->get_plugin_name(), $this->get_version() );
+        	$custom_download::init();
 
         	//Reset reroute hook
-        	$this->loader->add_action( 'woocommerce_download_file_' . $file_download_method, $plugin_admin, 'cds_download_reroute', 9, 2);
+        	//$this->loader->add_action( 'woocommerce_download_file_' . $file_download_method, $plugin_admin, 'cds_download_reroute', 9, 2);
 
     	}
     	else
@@ -282,18 +282,12 @@ class Custom_Download_Settings_Admin {
     		$file_download_method = $this->cds_download_setting_stter($download_setting);
 
     		//Remove reroute hook temporarily
-    		remove_action('woocommerce_download_file_' . $file_download_method, 'cds_download_reroute');
+    		remove_action('woocommerce_download_file_' . $file_download_method, array( $plugin_admin, 'cds_download_reroute' ));
 
-    		//If not then simply allow the next action in the lifecycle to run.
-    		do_action( 'woocommerce_download_file_' . $file_download_method, $file_path, $filename );
+    		$cds_download = new WC_Download_Handler();
 
-    		$this->loader = new Custom_Download_Settings_Loader();
-
-        	$plugin_admin = new Custom_Download_Settings_Admin( $this->get_plugin_name(), $this->get_version() );
-
-    		//Reset reroute hook
-        	$this->loader->add_action( 'woocommerce_download_file_' . $file_download_method, $plugin_admin, 'cds_download_reroute', 9, 2);
-    	}
+    		$cds_download::init();
+		}
     }
 
     private function cds_download_setting_stter($option)
