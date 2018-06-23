@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom Downlaod Settings Downloads
+ * Custom Downlaod Settings Downloads Handler
  *
  * Handle digital downloads for the Custom Download Settings Plugin. 
  * This is a fork of the WC-Download-Handler woocommerce/woocommerce/master/includes/class-wc-download-handler
@@ -17,27 +17,6 @@ defined( 'ABSPATH' ) || exit;
  * Download handler class.
  */
 class CDS_Download_Handler {
-
-	/**
-	 * The custom download method of the current file.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 * @var      string    $download_method    The custom download method of the current file.
-	 */
-	private $download_method;
-
-	/**
-	 * Initialize the class and set its properties.
-	 *
-	 * @since    1.0.0
-	 * @param      string    $plugin_name       The name of this plugin.
-	 */
-	public function __construct( $download_method ) {
-
-		$this->download_method = $download_method;
-
-	}
 
 	/**
 	 * Hook in methods.
@@ -208,6 +187,7 @@ class CDS_Download_Handler {
 	 * @param integer $product_id Product ID of the product being downloaded.
 	 */
 	public static function download( $file_path, $product_id ) {
+
 		if ( ! $file_path ) {
 			self::download_error( __( 'No file defined', 'woocommerce' ) );
 		}
@@ -218,9 +198,13 @@ class CDS_Download_Handler {
 			$filename = current( explode( '?', $filename ) );
 		}
 
-		$filename             = apply_filters( 'woocommerce_file_download_filename', $filename, $product_id );
-		$file_download_method = $this->download_method; //custom download setting added here.
+		$filename = apply_filters( 'woocommerce_file_download_filename', $filename, $product_id );
 
+		//Get current custom download method
+		$cds_download_method = self::cds_dh_get_custom_download_setting($product_id);
+
+		$file_download_method = $cds_download_method; //custom download setting added here.
+		
 		// Add action to prevent issues in IE.
 		add_action( 'nocache_headers', array( __CLASS__, 'ie_nocache_headers_fix' ) );
 
@@ -601,6 +585,26 @@ class CDS_Download_Handler {
 		}
 		wp_die( $message, $title, array( 'response' => $status ) ); // WPCS: XSS ok.
 	}
+
+	private static function cds_dh_get_custom_download_setting($post_id = 1)
+    {
+    	$custom_download_setting = get_post_meta($post_id, '_custom_download_field', true);
+
+    	switch ($custom_download_setting) {
+    			case 'one':
+    				return 'force';
+    				break;
+    			case 'two':
+    				return 'xsendfile';
+    				break;
+    			case 'three':
+    				return 'redirect';
+    				break;    			
+    			default:
+    				return false;
+    				break;
+    	}
+    }
 }
 
 CDS_Download_Handler::init();
