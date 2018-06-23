@@ -7,7 +7,7 @@
  * This is a fork of the WC-Download-Handler woocommerce/woocommerce/master/includes/class-wc-download-handler
  * php class within the WooCommerce plugin.
  *
- * @package Custom-Download-Settings/Classes
+ * @package Custom-Download-Settings/admin/classes
  * @version 1.0.0
  */
 
