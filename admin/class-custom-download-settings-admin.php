@@ -53,16 +53,6 @@ class Custom_Download_Settings_Admin {
 	private $select_id;
 
 	/**
-	 * The loader that's responsible for maintaining and registering all hooks that power
-	 * the plugin.
-	 *
-	 * @since    1.0.0
-	 * @access   protected
-	 * @var      Custom_Download_Settings_Loader    $loader    Maintains and registers all hooks for the plugin.
-	 */
-	protected $loader;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -73,8 +63,6 @@ class Custom_Download_Settings_Admin {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
-		
-		$this->loader = new Custom_Download_Settings_Loader();
 
 		//Set select ID
 		$this->select_id = '_custom_download_field';
