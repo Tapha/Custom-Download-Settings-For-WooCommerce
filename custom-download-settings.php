@@ -8,17 +8,17 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://wiserdev.com
+ * @link              https://tapha.xyz
  * @since             1.0.0
  * @package           Custom_Download_Settings
  *
  * @wordpress-plugin
  * Plugin Name:       Custom Download Settings
- * Plugin URI:        https://wiserdev.com/cds
+ * Plugin URI:        https://tapha.xyz/cds
  * Description:       Set custom download preferences for individual WooCommerce products.
  * Version:           1.0.0
- * Author:            WiserDev Ltd
- * Author URI:        https://wiserdev.com
+ * Author:            E M Ngum
+ * Author URI:        https://tapha.xyz
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       custom-download-settings
