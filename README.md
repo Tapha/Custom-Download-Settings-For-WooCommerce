@@ -48,11 +48,7 @@ git clone https://github.com/Tapha/Custom-Download-Settings-For-WooCommerce.git
 
 ## Screenshots
 
-1. Custom Download Settings tab in WooCommerce settings.
-
-![WooCommerce Settings](https://user-images.githubusercontent.com/174484/236505918-b98f642c-f16b-45d8-bf1d-adc077265c33.png)
-
-2. Custom Download Settings tab in the Product data section.
+1. Custom Download Settings tab in the Product data section.
 
 ![Product Data](https://user-images.githubusercontent.com/174484/236505918-b98f642c-f16b-45d8-bf1d-adc077265c33.png)
 
