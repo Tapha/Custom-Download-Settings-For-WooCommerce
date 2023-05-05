@@ -34,7 +34,7 @@ git clone https://github.com/Tapha/Custom-Download-Settings-For-WooCommerce.git
 
 ## Configuration
 
-1. Navigate to the **WooCommerce** settings page in your WordPress admin panel.
+1. Navigate to the **Plugins** page in your WordPress admin panel.
 2. Click on the **Custom Download Settings** tab.
 3. Configure the plugin settings according to your needs.
 
