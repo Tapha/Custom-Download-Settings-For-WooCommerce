@@ -1,8 +1,6 @@
 # Custom Download Settings for WooCommerce
 
-Custom Download Settings for WooCommerce is a plugin that allows you to enhance the default download settings for WooCommerce products. Create personalized download experiences by offering different download options, such as file format, download location, or access to future updates.
-
-![Plugin Banner](./assets/banner-1544x500.jpg)
+Custom Download Settings for WooCommerce is a plugin that allows you to enhance the default download settings for WooCommerce products. Create personalized download experiences by offering different download options.
 
 ## Table of Contents
 
@@ -18,7 +16,6 @@ Custom Download Settings for WooCommerce is a plugin that allows you to enhance 
 ## Features
 
 - Customize download settings for individual WooCommerce products.
-- Set different file formats, download locations, and access to future updates.
 - Improve customer experience with personalized download options.
 
 ## Installation
