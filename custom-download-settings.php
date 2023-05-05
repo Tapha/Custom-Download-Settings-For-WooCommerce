@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              https://tapha.xyz
+ * @link              https://github.com/Tapha/Custom-Download-Settings-For-WooCommerce
  * @since             1.0.0
  * @package           Custom_Download_Settings
  *
@@ -17,7 +17,7 @@
  * Plugin URI:        https://github.com/Tapha/Custom-Download-Settings-For-WooCommerce
  * Description:       Set custom download preferences for individual WooCommerce products.
  * Version:           1.0.0
- * Author:            E M Ngum
+ * Author:            Tapha Ngum
  * Author URI:        https://github.com/Tapha
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
