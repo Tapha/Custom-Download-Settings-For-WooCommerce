@@ -14,11 +14,11 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Custom Download Settings
- * Plugin URI:        https://tapha.xyz/cds
+ * Plugin URI:        https://github.com/Tapha/Custom-Download-Settings-For-WooCommerce
  * Description:       Set custom download preferences for individual WooCommerce products.
  * Version:           1.0.0
  * Author:            E M Ngum
- * Author URI:        https://tapha.xyz
+ * Author URI:        https://github.com/Tapha
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       custom-download-settings
